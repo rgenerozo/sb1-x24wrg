@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
+    <ActionBar title="Karaoke App" />
+    
+    <StackLayout class="p-4">
+        <GridLayout rows="auto, *" columns="*, auto" class="mb-4">
+            <TextField row="0" col="0" 
+                hint="Buscar música..." 
+                text="{{ searchQuery }}"
+                class="p-2 border rounded-l-lg" />
+            <Button row="0" col="1" 
+                text="Buscar" 
+                tap="{{ onSearch }}"
+                class="bg-blue-500 text-white p-2 rounded-r-lg" />
+        </GridLayout>
+
+        <ListView items="{{ searchResults }}" itemTap="{{ onVideoSelect }}" height="300">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *" class="p-2 border-b">
+                    <Image col="0" src="{{ thumbnail }}" width="120" height="70" class="rounded" />
+                    <StackLayout col="1" class="ml-2">
+                        <Label text="{{ title }}" textWrap="true" class="font-bold" />
+                        <Label text="{{ channel }}" class="text-gray-500" />
+                    </StackLayout>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <GridLayout rows="*" class="mt-4" visibility="{{ isPlaying ? 'visible' : 'collapsed' }}">
+            <ContentView>
+                <VideoPlayer id="videoPlayer"
+                    src="{{ currentVideo.videoUrl }}"
+                    autoplay="true"
+                    height="200" />
+            </ContentView>
+            <Button text="Conectar à TV" 
+                tap="{{ connectToTV }}"
+                class="bg-green-500 text-white p-2 rounded-lg mt-4" />
+        </GridLayout>
+    </StackLayout>
+</Page>
